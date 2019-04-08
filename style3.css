@@ -1,0 +1,17 @@
+﻿.page
+{ 
+width:800px;
+height:auto;
+border-style:groove;
+}
+.heading
+{
+background-color:rgb(51, 204, 255);
+font-color:black;
+}
+.body
+{
+background-color:rgb(204, 225, 255);
+font-color:black;
+padding-bottom:10px;
+}

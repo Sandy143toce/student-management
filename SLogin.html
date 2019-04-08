@@ -1,0 +1,58 @@
+﻿<html>
+<head>
+<link rel ="stylesheet" type="text/css" href="style4.css"></link>
+<title> Student Login </title>
+<link rel="stylesheet" href="bootstrap.min.css">
+        <script src="jquery.min.js"></script>
+        <script src="bootstrap.min.js"></script>
+</head>
+<style>
+body
+{
+background-image: url(download7.jpg);
+}
+</style>
+<script>
+        $(document).ready(function(){
+        $("#postcontent button").click(function(e){   
+          e.preventDefault();
+          console.log("form validate");
+          var username = document.getElementById("username").value;
+          var password = document.getElementById("pwd").value;
+          console.log(username,password);
+          $.ajax({
+              url: "http://localhost:4567/api/login/student",
+              type: "POST",
+              dataType: "json",
+              data: JSON.stringify({"username": username,"password":password}),                       
+          }).done(function(response){
+              console.log("response s==",response,typeof(response));             
+              if(response.student_id){
+                window.location.href='studentdetails.html?student_id='+response.student_id;     
+              } else {
+                  console.log("wrong Password");
+              }
+
+          })
+          return false;
+        });
+      })
+      </script>
+</head>
+<body>
+        <div class="container">
+            <h2>Student Login</h2>
+            <form id="postcontent">
+              <div class="form-group">
+                <label for="UserName">UserName:</label>
+                <input class="form-control" id="username" placeholder="Enter UserName" name="username">
+              </div>
+              <div class="form-group">
+                <label for="pwd">Password:</label>
+                <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="pwd">
+              </div>         
+              <button type="submit" class="btn btn-default">Submit</button>
+            </form>
+        </div>
+    </body>
+</html>

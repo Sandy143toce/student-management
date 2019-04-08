@@ -1,0 +1,72 @@
+<html>
+<head>
+<link rel ="stylesheet" type="text/css" href="style4.css"></link>
+<title> Student List </title>
+<link rel="stylesheet" href="bootstrap.min.css">
+<link rel="stylesheet" href="bootstrap-table.min.css">
+        <script src="jquery.min.js"></script>
+        <script src="bootstrap.min.js"></script>
+        <script src="bootstrap-table.min.js"></script>
+</head>
+<style type="text/css">
+
+    .table-hover tbody tr:hover td
+    {
+
+        background-color: red;
+    }
+    body
+    {
+        margin: 50px;
+    }
+
+</style>
+<script>
+     $(document).ready(function(){                  
+          console.log("form validate"); 
+          $.ajax({
+              url: "http://localhost:4567/api/studentdata",
+              type: "GET"                                    
+          }).done(function(response){
+                console.log("response s==",response,typeof(response));
+                var jsonData = JSON.parse(response);                
+                $('#table').bootstrapTable({
+                    data: jsonData
+                });
+              
+          })
+          return false;
+          
+
+     })
+     $(function () {
+        var $table = $('#table');
+        $table.on('click-row.bs.table', function (e, row, $element) {
+            console.log("row is clicked",row.id);
+            window.location.href="studentdetailsupdate.html?student_id="+row.id;
+        });
+     })
+</script>
+<body>
+    <div class="container">
+    <a href="studentadd.html" style="float:right" class="btn btn-primary">Add Student</a>    
+    <form id="form1" runat="server">
+        <table id="table" class="table table-striped table-hover" data-height="460">                        
+            <thead>
+                <tr>
+                    <th data-field="id">ID</th>
+                    <th data-field="name">Name</th>
+                    <th data-field="phone_no">Phone</th>
+                    <th data-field="dob">Dob</th>
+                    <th data-field="attendance">Attendence</th>    
+                    <th data-field="marks_iat1">IAT1</th>
+                    <th data-field="marks_iat2">IAT2</th>
+                    <th data-field="marks_iat3">IAT3</th>                                
+                </tr>
+            </thead>
+        </table>
+    </form>
+    </div>
+    
+    </body>
+</html>

@@ -1,0 +1,75 @@
+<html>
+<head>
+<link rel ="stylesheet" type="text/css" href="style4.css"></link>
+<title> Student Login </title>
+<link rel="stylesheet" href="bootstrap.min.css">
+<link rel="stylesheet" href="bootstrap-table.min.css">
+        <script src="jquery.min.js"></script>
+        <script src="bootstrap.min.js"></script>
+        <script src="bootstrap-table.min.js"></script>
+</head>
+<script>
+    $(document).ready(function(){      
+      console.log("form validate");
+      var student_id = location.search.split("=")[1];
+      console.log("student id",student_id);
+      $.ajax({
+          url: "http://localhost:4567/api/student/"+student_id,
+          type: "GET"
+      }).done(function(response){
+            console.log("response s==",response,typeof(response));
+            response = JSON.parse(response);
+            $("#Name").val(response.name);
+            $("#Phone").val(response.phone_no);
+            $("#Address").val(response.address);
+            $("#DOB").val(response.dob);
+            $("#Attendance").val(response.attendance);
+            $('#IAT1-Marks').val(response.marks_iat1);
+            $('#IAT2-Marks').val(response.marks_iat2);
+            $('#IAT3-Marks').val(response.marks_iat3);               
+      })
+      return false;
+    });
+</script>
+<body>
+    <div class="container">
+        <h2>Student Details</h2>
+        <form id="postcontent" method="post">
+          <div class="form-group">
+            <label for="Name">Name:</label>
+            <input class="form-control" id="Name" placeholder="Enter Name" name="Name" disabled>
+          </div>
+          <div class="form-group">
+            <label for="phone">Phone:</label>
+            <input type="Phone" class="form-control" id="Phone" placeholder="Enter Phone" name="Phone" disabled>
+          </div>
+          <div class="form-group">
+            <label for="Address">Address:</label>
+            <input type="Address" class="form-control" id="Address" placeholder="Enter Address" name="Address" disabled>
+            </div>
+            <div class="form-group">
+            <label for="DOB">DOB:</label>
+            <input type="DOB" class="form-control" id="DOB" placeholder="DOB" name="DOB" disabled>
+            </div>
+            <div class="form-group">
+            <label for="Attendance">Attendance:</label>
+            <input type="Attendance" class="form-control" id="Attendance" placeholder="Enter Attendance" name="Attandance" disabled>
+            </div>   
+            <div class="form-group">
+                <label for="IAT1-Marks">IAT1-Marks:</label>
+                <input type="IAT1-Marks" class="form-control" id="IAT1-Marks" placeholder="Enter IAT1-Marks" name="IAT1-Marks" disabled>
+                
+              </div> 
+                <div class="form-group">
+                  <label for="IAT2-Marks">IAT2-Marks:</label>
+                  <input type="IAT2-Marks" class="form-control" id="IAT2-Marks" placeholder="Enter IAT2-Marks" name="IAT2-Marks" disabled>
+                  </div> 
+                  <div class="form-group">
+                    <label for="IAT3-Marks">IAT3-Marks:</label>
+                    <input type="IAT3-Marks" class="form-control" id="IAT3-Marks" placeholder="IAT3-Marks" name="IAT3-Marks" disabled>
+                    </div>       
+        </form>
+    </div>
+</body>
+</html>
+</html>

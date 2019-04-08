@@ -1,0 +1,101 @@
+<html>
+<head>
+<link rel ="stylesheet" type="text/css" href="style4.css"></link>
+<title> Student Login </title>
+<link rel="stylesheet" href="bootstrap.min.css">
+<link rel="stylesheet" href="bootstrap-table.min.css">
+        <script src="jquery.min.js"></script>
+        <script src="bootstrap.min.js"></script>
+        <script src="bootstrap-table.min.js"></script>
+</head>
+<script>
+    $(document).ready(function(){      
+      console.log("form validate");
+      var student_id = location.search.split("=")[1];
+      console.log("student id",student_id);
+      $.ajax({
+          url: "http://localhost:4567/api/student/"+student_id,
+          type: "GET"
+      }).done(function(response){
+            console.log("response s==",response,typeof(response));
+            response = JSON.parse(response);
+            $("#Name").val(response.name);
+            $("#Phone").val(response.phone_no);
+            $("#Address").val(response.address);
+            $("#DOB").val(response.dob);
+            $("#Attendance").val(response.attendance); 
+            $('#IAT1-Marks').val(response.marks_iat1);
+            $('#IAT2-Marks').val(response.marks_iat2);
+            $('#IAT3-Marks').val(response.marks_iat3);               
+      })
+      $("#postcontent button").click(function(e){
+          console.log("on click");
+          e.preventDefault();
+          console.log("form validate");
+          var name = document.getElementById("Name").value;
+          var phone = document.getElementById("Phone").value;
+          var address = document.getElementById("Address").value;
+          var dob = document.getElementById("DOB").value;
+          var attendance = document.getElementById("Attendance").value;
+          var marks_iat1 = document.getElementById("IAT1-Marks").value;
+          var marks_iat2 = document.getElementById("IAT2-Marks").value;
+          var marks_iat3 = document.getElementById("IAT3-Marks").value;
+          console.log(name,phone);
+          $.ajax({
+              url: "http://localhost:4567/api/student/"+student_id,
+              type: "PUT",
+              dataType: "json",
+              data: JSON.stringify({"name": name,"phone_no":phone,"dob": dob,"attendance":attendance,"address":address,"marks_iat1":marks_iat1,"marks_iat2":marks_iat2,"marks_iat3":marks_iat3}),                       
+          }).done(function(response){
+                console.log("response s==",response);
+                window.location.href='studentlist.html'
+              
+          })
+          return false;
+      });
+    });
+</script>
+<body>
+    <div class="container">
+        <h2>Update Student</h2>
+        <form id="postcontent" method="post">
+          <div class="form-group">
+            <label for="Name">Name:</label>
+            <input class="form-control" id="Name" placeholder="Enter Name" name="Name">
+          </div>
+          <div class="form-group">
+            <label for="phone">Phone:</label>
+            <input type="Phone" class="form-control" id="Phone" placeholder="Enter Phone" name="Phone">
+          </div>
+          <div class="form-group">
+            <label for="Address">Address:</label>
+            <input type="Address" class="form-control" id="Address" placeholder="Enter Address" name="Address">
+            </div>
+            <div class="form-group">
+            <label for="DOB">DOB:</label>
+            <input type="DOB" class="form-control" id="DOB" placeholder="DOB" name="DOB">
+            </div>
+            <div class="form-group">
+            <label for="Attendance">Attendance:</label>
+            <input type="Attendance" class="form-control" id="Attendance" placeholder="Enter Attendance" name="Attandance">
+            </div>
+            <div class="form-group">
+                <label for="IAT1-Marks">IAT1-Marks:</label>
+                <input type="IAT1-Marks" class="form-control" id="IAT1-Marks" placeholder="Enter IAT1-Marks" name="IAT1-Marks">
+                
+              </div> 
+                <div class="form-group">
+                  <label for="IAT2-Marks">IAT2-Marks:</label>
+                  <input type="IAT2-Marks" class="form-control" id="IAT2-Marks" placeholder="Enter IAT2-Marks" name="IAT2-Marks">
+                  </div> 
+                  <div class="form-group">
+                    <label for="IAT3-Marks">IAT3-Marks:</label>
+                    <input type="IAT3-Marks" class="form-control" id="IAT3-Marks" placeholder="IAT3-Marks" name="IAT3-Marks">
+                    </div> 
+        
+            <button type="submit" class="btn btn-default">Submit</button>         
+        </form>
+    </div>
+</body>
+</html>
+</html>
